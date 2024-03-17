@@ -70,4 +70,6 @@ _generate() async {
   // write json file
   final jsonFile = File('assets/data.json');
   jsonFile.writeAsString(jsonDataString);
+
+  // TODO: add sitemap and feed generator
 }
