@@ -31,6 +31,10 @@ class ContentView extends GetView {
             'Author: ${content?.author} , ${DateFormat.yMMMd().format(content!.datetime!)}',
             style: Theme.of(context).textTheme.bodyMedium,
           ),
+          Text(
+            'Category: ${content?.category}',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
           const Gap(16),
           MarkdownWidget(
             shrinkWrap: true,
