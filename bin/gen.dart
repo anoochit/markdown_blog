@@ -7,6 +7,9 @@ import 'package:cosmic_frontmatter/cosmic_frontmatter.dart';
 
 import 'package:mdsite/app/data/models/markdown_doc.dart';
 import 'package:mdsite/app/data/models/mdcontent.dart';
+import 'package:mdsite/app/data/models/sitecontent.dart';
+import 'package:rss_generator/rss_generator.dart';
+import 'package:sitemap/sitemap.dart';
 
 Future<void> main(List<String> args) async {
   // generate content
@@ -18,8 +21,30 @@ _generate() async {
   final dir = Directory.fromUri(Uri.parse('assets/contents/'));
   final List<FileSystemEntity> files = await dir.list().toList();
 
+  // json data string
   String jsonDataString = '[VVV]';
   String jsonDocString = '';
+
+  // TODO : base url
+  const baseUrl = 'https://blog.redlinesoft.net';
+
+  // site map
+  final sitemap = Sitemap();
+  sitemap.entries.add(
+    SitemapEntry()
+      ..location = baseUrl
+      ..lastModified = DateTime.now()
+      ..changeFrequency = 'weekly',
+  );
+
+  // TODO : rss builder
+  RssBuilder builder = RssBuilder(
+    channelName: "Anuchit's tech blog",
+    channelDescription:
+        "Stay up to date with the latest news, tips, and trends in technology, software development, and mobile application development. Our web blog covers everything from coding best practices to app design, development, and deployment strategies. Join our community of tech enthusiasts today!",
+    channelLink: baseUrl,
+    channelAtomLink: '$baseUrl/rss.xml',
+  ).copyright('Copyright 2023').pubDate(DateTime.now()).ttl(60);
 
   // loop to create json content
   for (var file in files) {
@@ -44,11 +69,12 @@ _generate() async {
     final category = mdFormatter.frontmatter.category;
     final datetime = mdFormatter.frontmatter.date;
     final body = mdFormatter.body;
+    final id =
+        file.path.replaceAll('assets\\contents\\', '').replaceAll('.md', '');
+    final link = '$baseUrl/page?id=$id';
 
     final jsonString = MdContent(
-        id: file.path
-            .replaceAll('assets\\contents\\', '')
-            .replaceAll('.md', ''),
+        id: id,
         title: title!,
         author: author!,
         excerpt: excerpt!,
@@ -58,6 +84,21 @@ _generate() async {
 
     // add doc json string
     jsonDocString = '$jsonDocString${jsonEncode(jsonString.toJson())},';
+
+    // add sitemap
+    sitemap.entries.add(SitemapEntry()
+      ..location = link
+      ..lastModified = DateTime.now()
+      ..changeFrequency = 'weekly');
+
+    // add rss
+    builder.addItem(
+      RssItemBuilder(
+        title: '${title}',
+        description: '${excerpt}',
+        link: link,
+      ),
+    );
   }
 
   // FIXME : should has better solution
@@ -67,9 +108,57 @@ _generate() async {
     jsonDocString.substring(0, jsonDocString.length - 1),
   );
 
-  // write json file
+  // write data json file
   final jsonFile = File('assets/data.json');
   jsonFile.writeAsString(jsonDataString);
 
-  // TODO: add sitemap and feed generator
+  final siteMapData = File('web/sitemap.xml');
+  siteMapData.writeAsString(sitemap.generate());
+
+  final rssFeedData = File('web/rss.xml');
+  rssFeedData.writeAsString(builder.build().toString());
+}
+
+genSiteMap(String siteContents) {
+  const baseUrl = 'https://blog.redlinesoft.net';
+
+  final sitemap = Sitemap();
+
+  sitemap.entries.add(
+    SitemapEntry()
+      ..location = baseUrl
+      ..lastModified = DateTime.now()
+      ..changeFrequency = 'weekly',
+  );
+
+  final listUrl = siteContentFromJson(siteContents);
+
+  RssBuilder builder = RssBuilder(
+    channelName: "Anuchit's tech blog",
+    channelDescription:
+        "Stay up to date with the latest news, tips, and trends in technology, software development, and mobile application development. Our web blog covers everything from coding best practices to app design, development, and deployment strategies. Join our community of tech enthusiasts today!",
+    channelLink: 'https://blog.redlinesoft.net',
+    channelAtomLink: 'https://blog.redlinesoft.net/rss.xml',
+  ).copyright('Copyright 2023').pubDate(DateTime.now()).ttl(60);
+
+  for (var element in listUrl) {
+    sitemap.entries.add(SitemapEntry()
+      ..location = '$baseUrl/#/post/${element.slug}'
+      ..lastModified = DateTime.now()
+      ..changeFrequency = 'weekly');
+
+    builder.addItem(
+      RssItemBuilder(
+        title: '${element.title}',
+        description: '${element.excerpt}',
+        link: '$baseUrl/#/post/${element.slug}',
+      ),
+    );
+  }
+
+  final siteMapData = File('web/sitemap.xml');
+  siteMapData.writeAsString(sitemap.generate());
+
+  final rssFeedData = File('web/rss.xml');
+  rssFeedData.writeAsString(builder.build().toString());
 }

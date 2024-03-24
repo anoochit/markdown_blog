@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 
 import 'package:get/get.dart';
@@ -11,8 +12,12 @@ class HeaderView extends GetView {
     return Column(
       children: [
         const Gap(32.0),
-        const CircleAvatar(
-          radius: 60.0,
+        GestureDetector(
+          onTap: () => Get.toNamed(Routes.HOME),
+          child: const CircleAvatar(
+            radius: 60.0,
+            backgroundImage: AssetImage('assets/images/1182518.jpg'),
+          ),
         ),
         const Gap(16.0),
         Text(
