@@ -13,11 +13,17 @@ class PageMiddleware extends GetMiddleware {
 
     if (id != null) {
       content = listContent.firstWhere((element) => element.id == id);
+      return GetPage(
+        name: Routes.PAGE,
+        page: () => PageView(content: content),
+        transition: Transition.noTransition,
+      );
+    } else {
+      return GetPage(
+        name: Routes.HOME,
+        page: () => PageView(content: content),
+        transition: Transition.noTransition,
+      );
     }
-
-    return GetPage(
-      name: Routes.PAGE,
-      page: () => PageView(content: content),
-    );
   }
 }
