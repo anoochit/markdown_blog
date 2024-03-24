@@ -12,19 +12,22 @@ class ScreenView extends GetView {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: SizedBox(
-        width: 768,
-        child: Column(
-          children: [
-            // header
-            const HeaderView(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: SizedBox(
+          width: 768,
+          child: Column(
+            children: [
+              // header
+              const HeaderView(),
 
-            // content
-            content,
+              // content
+              content,
 
-            // footer
-            const FooterView(),
-          ],
+              // footer
+              const FooterView(),
+            ],
+          ),
         ),
       ),
     );
