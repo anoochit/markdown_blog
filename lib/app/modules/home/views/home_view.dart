@@ -11,6 +11,8 @@ class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
   @override
   Widget build(BuildContext context) {
+    // add meta seo data for web app as you want
+
     return SelectionArea(
       child: Scaffold(
         body: SingleChildScrollView(

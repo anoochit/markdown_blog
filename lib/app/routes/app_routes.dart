@@ -7,10 +7,12 @@ abstract class Routes {
   Routes._();
   static const HOME = _Paths.HOME;
   static const PAGE = _Paths.PAGE;
+  static const PAGE_NOT_FOUND = _Paths.PAGE_NOT_FOUND;
 }
 
 abstract class _Paths {
   _Paths._();
   static const HOME = '/';
   static const PAGE = '/page';
+  static const PAGE_NOT_FOUND = '/page-not-found';
 }

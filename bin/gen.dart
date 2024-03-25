@@ -94,8 +94,8 @@ _generate() async {
     // add rss
     builder.addItem(
       RssItemBuilder(
-        title: '${title}',
-        description: '${excerpt}',
+        title: title,
+        description: excerpt,
         link: link,
       ),
     );
