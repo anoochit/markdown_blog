@@ -6,7 +6,7 @@ import 'package:mdsite/app/data/models/mdcontent.dart';
 late List<MdContent> listContent;
 
 // your domainname eg; https://example.com
-String baseURL = 'https://blog.redlinesoft.net';
+String baseURL = 'https://gapp-a706.globeapp.dev';
 
 // TODO : Basic SEO
 const SEO_TITLE = 'Anuchit\'s technology blog';
