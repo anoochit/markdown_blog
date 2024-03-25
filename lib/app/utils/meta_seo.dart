@@ -4,6 +4,8 @@ import 'package:meta_seo/meta_seo.dart';
 import '../../const.dart';
 import '../data/models/mdcontent.dart';
 
+// FIXME : make this easy configure
+
 setPageMeta(MdContent? content) {
   if (kIsWeb) {
     // add meta seo as you want

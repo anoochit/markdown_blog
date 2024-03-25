@@ -23,7 +23,7 @@ Future<void> main() async {
 
   runApp(
     GetMaterialApp(
-      title: "Web",
+      title: SEO_TITLE,
       theme: ThemeData(
         colorSchemeSeed: Colors.blue,
       ),
