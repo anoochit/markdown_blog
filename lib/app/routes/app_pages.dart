@@ -1,10 +1,7 @@
-import 'package:flutter/foundation.dart';
 
 import 'package:get/get.dart';
 import 'package:mdsite/app/utils/meta_seo.dart';
-import 'package:meta_seo/meta_seo.dart';
 
-import '../../const.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/page/bindings/page_binding.dart';
