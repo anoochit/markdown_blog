@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 import 'package:get/get.dart';
+import 'package:mdsite/app/utils/meta_seo.dart';
 import 'package:meta_seo/meta_seo.dart';
 
 import '../../const.dart';
@@ -25,11 +26,7 @@ class AppPages {
     GetPage(
       name: _Paths.HOME,
       page: () {
-        if (kIsWeb) {
-          MetaSEO meta = MetaSEO();
-          meta.author(author: SEO_AUTHOR);
-          meta.description(description: SEO_DESCRIPTION);
-        }
+        setPageMeta(null);
         return const HomeView();
       },
       binding: HomeBinding(),
