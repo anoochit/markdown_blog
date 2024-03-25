@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
-import 'package:mdsite/app/modules/page_not_found/views/page_not_found_view.dart';
-import 'package:mdsite/app/utils/meta_seo.dart';
 
 import '../../../../const.dart';
 import '../../../data/models/mdcontent.dart';
 import '../../../routes/app_pages.dart';
+import '../../../utils/meta_seo.dart';
+import '../../page_not_found/views/page_not_found_view.dart';
 import '../views/page_view.dart';
 
 class PageMiddleware extends GetMiddleware {

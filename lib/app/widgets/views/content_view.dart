@@ -4,8 +4,8 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:markdown_widget/markdown_widget.dart';
-import 'package:mdsite/app/data/models/mdcontent.dart';
 
+import '../../data/models/mdcontent.dart';
 import '../../routes/app_pages.dart';
 
 class ContentView extends GetView {

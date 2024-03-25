@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
-import 'package:mdsite/app/data/models/mdcontent.dart';
-import 'package:mdsite/const.dart';
 import 'package:meta_seo/meta_seo.dart';
+
+import '../../const.dart';
+import '../data/models/mdcontent.dart';
 
 setPageMeta(MdContent? content) {
   if (kIsWeb) {
