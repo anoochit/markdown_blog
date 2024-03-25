@@ -10,7 +10,18 @@ class FooterView extends GetView {
     return const Column(
       children: [
         Gap(64.0),
-        Text("Made with ❤️ by Dart & Flutter"),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Made with "),
+            Icon(
+              Icons.favorite,
+              color: Colors.red,
+              size: 24,
+            ),
+            Text(" by Dart & Flutter"),
+          ],
+        ),
         Gap(32.0),
       ],
     );
